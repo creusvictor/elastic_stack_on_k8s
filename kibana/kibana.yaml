@@ -1,12 +1,12 @@
 apiVersion: kibana.k8s.elastic.co/v1
 kind: Kibana
 metadata:
-  name: elastic
+  name: kibana
 spec:
   version: 8.14.3
   count: 1
   elasticsearchRef:
-    name: elastic
+    name: elasticsearch
   config:
     xpack.fleet.agents.elasticsearch.hosts: ["https://elastic-es-http.default.svc:9200"]
     xpack.fleet.agents.fleet_server.hosts: ["https://fleet-server-agent-http.default.svc:8220"]
