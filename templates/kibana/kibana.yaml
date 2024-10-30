@@ -10,7 +10,7 @@ spec:
     name: {{ .Values.cluster.name }}
   config:
     xpack.fleet.agents.elasticsearch.hosts: ["https://{{ .Values.cluster.name }}-es-http.default.svc:9200"]
-    xpack.fleet.agents.fleet_server.hosts: ["https://fleet-server-agent-http.default.svc:8220"]
+    xpack.fleet.agents.fleet_server.hosts: ["https://{{ .Values.cluster.fleetserver.instance.name }}-agent-http.default.svc:8220"]
     xpack.fleet.packages:
       - name: system
         version: latest

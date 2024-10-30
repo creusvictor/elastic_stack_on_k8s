@@ -15,12 +15,12 @@ cluster:
     instance:
       count: 1
 
-  fleet-server:
+  fleetserver:
     instance:
       name: "fleet-server"
       count: 1
 
-  elastic-agent:
+  elasticagent:
     instance:
       name: "elastic-agent"
 

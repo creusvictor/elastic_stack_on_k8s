@@ -1,7 +1,7 @@
 apiVersion: agent.k8s.elastic.co/v1alpha1
 kind: Agent
 metadata:
-  name: {{ .Values.cluster.fleet-server.instance.name }}
+  name: {{ .Values.cluster.fleetserver.instance.name }}
   namespace: {{ .Values.cluster.namespace }}
 spec:
   version: {{ .Values.cluster.version }}
@@ -13,7 +13,7 @@ spec:
   fleetServerEnabled: true
   policyID: eck-fleet-server
   deployment:
-    replicas: {{ .Values.cluster.fleet-server.instance.name }}
+    replicas: {{ .Values.cluster.fleetserver.instance.count }}
     podTemplate:
       spec:
         serviceAccountName: elastic-agent
