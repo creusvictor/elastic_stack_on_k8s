@@ -1,19 +1,19 @@
 apiVersion: agent.k8s.elastic.co/v1alpha1
 kind: Agent
 metadata:
-  name: fleet-server
-  namespace: default
+  name: {{ .Values.cluster.fleet-server.instance.name }}
+  namespace: {{ .Values.cluster.namespace }}
 spec:
-  version: 8.14.3
+  version: {{ .Values.cluster.version }}
   kibanaRef:
-    name: kibana
+    name: {{ .Values.cluster.name }}
   elasticsearchRefs:
-  - name: elasticsearch
+  - name: {{ .Values.cluster.name }}
   mode: fleet
   fleetServerEnabled: true
   policyID: eck-fleet-server
   deployment:
-    replicas: 1
+    replicas: {{ .Values.cluster.fleet-server.instance.name }}
     podTemplate:
       spec:
         serviceAccountName: elastic-agent

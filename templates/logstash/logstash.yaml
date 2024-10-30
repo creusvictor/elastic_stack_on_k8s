@@ -1,0 +1,37 @@
+apiVersion: logstash.k8s.elastic.co/v1alpha1
+kind: Logstash
+metadata:
+  name: {{ .Values.cluster.logstash.instance.name }}
+  namespace: {{ .Values.cluster.namespace }}
+spec:
+  count: {{ .Values.cluster.logstash.instance.count }}
+  elasticsearchRefs:
+    - name: {{ .Values.cluster.name }}
+      clusterName: {{ .Values.cluster.name }}
+  version: {{ .Values.cluster.version }}
+  pipelines:
+    - pipeline.id: {{ .Values.cluster.logstash.pipeline.id }}
+      config.string: |
+        input {
+          beats {
+            port => {{ .Values.cluster.logstash.service.port.value }}
+          }
+        }
+        output {
+          elasticsearch {
+            hosts => [ "${ELASTIC_ES_HOSTS}" ]
+            user => "${ELASTIC_ES_USER}"
+            password => "${ELASTIC_ES_PASSWORD}"
+            ssl_certificate_authorities => "${ELASTIC_ES_SSL_CERTIFICATE_AUTHORITY}"
+          }
+        }
+  services:
+    - name: {{ .Values.cluster.logstash.service.name }}
+      service:
+        spec:
+          type: {{ .Values.cluster.logstash.service.type }}
+          ports:
+            - port: {{ .Values.cluster.logstash.service.port.value }}
+              name: {{ .Values.cluster.logstash.service.port.name }}
+              protocol: {{ .Values.cluster.logstash.service.port.protocol }}
+              targetPort: {{ .Values.cluster.logstash.service.port.targetPort }}

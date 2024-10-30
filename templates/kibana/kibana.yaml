@@ -1,14 +1,15 @@
 apiVersion: kibana.k8s.elastic.co/v1
 kind: Kibana
 metadata:
-  name: kibana
+  name: {{ .Values.cluster.name }}
+  namespace: {{ .Values.cluster.namespace }}
 spec:
-  version: 8.14.3
-  count: 1
+  version: {{ .Values.cluster.version }}
+  count: {{ .Values.cluster.kibana.instance.count }}
   elasticsearchRef:
-    name: elasticsearch
+    name: {{ .Values.cluster.name }}
   config:
-    xpack.fleet.agents.elasticsearch.hosts: ["https://elastic-es-http.default.svc:9200"]
+    xpack.fleet.agents.elasticsearch.hosts: ["https://{{ .Values.cluster.name }}-es-http.default.svc:9200"]
     xpack.fleet.agents.fleet_server.hosts: ["https://fleet-server-agent-http.default.svc:8220"]
     xpack.fleet.packages:
       - name: system

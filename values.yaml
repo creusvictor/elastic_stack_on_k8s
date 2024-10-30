@@ -1,0 +1,41 @@
+eck:
+  namespace: "elastic-system"
+
+cluster:
+  name: "elastic"
+  version: "8.15.3"
+  namespace: "elastic-stack"
+
+  elasticsearch:
+    node:
+      name: "node"
+      count: 3
+
+  kibana:
+    instance:
+      count: 1
+
+  fleet-server:
+    instance:
+      name: "fleet-server"
+      count: 1
+
+  elastic-agent:
+    instance:
+      name: "elastic-agent"
+
+  logstash:
+    instance:
+      name: "logstash"
+      count: 1
+    pipeline:
+      id: "main"
+    service:
+      name: "beats"
+      type: "NodePort"
+      port:
+        value: 5044
+        targetPort: 5044
+        protocol: "TCP"
+        name: "beats"
+

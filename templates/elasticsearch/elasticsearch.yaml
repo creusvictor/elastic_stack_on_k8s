@@ -1,0 +1,12 @@
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: {{ .Values.cluster.name }}
+  namespace: {{ .Values.cluster.namespace }}
+spec:
+  version: {{ .Values.cluster.version }}
+  nodeSets:
+  - name: {{ .Values.cluster.elasticsearch.node.name }}
+    count: {{ .Values.cluster.elasticsearch.node.count }}
+    config:
+      node.store.allow_mmap: false

@@ -1,14 +1,14 @@
 apiVersion: agent.k8s.elastic.co/v1alpha1
 kind: Agent
 metadata:
-  name: elastic-agent
-  namespace: default
+  name: {{ .Values.cluster.elastic-agent.instance.name }}
+  namespace: {{ .Values.cluster.namespace }}
 spec:
-  version: 8.14.3
+  version: {{ .Values.cluster.version }}
   kibanaRef:
-    name: elastic
+    name: {{ .Values.cluster.name }}
   fleetServerRef:
-    name: fleet-server
+    name: {{ .Values.cluster.fleet-server.instance.name }}
   mode: fleet
   policyID: eck-agent
   daemonSet:
