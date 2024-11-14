@@ -3,7 +3,7 @@ eck:
 
 cluster:
   name: "elastic"
-  version: "8.15.3"
+  version: "8.16.0"
   namespace: "elastic-stack"
 
   elasticsearch:
@@ -38,4 +38,3 @@ cluster:
         targetPort: 5044
         protocol: "TCP"
         name: "beats"
-
